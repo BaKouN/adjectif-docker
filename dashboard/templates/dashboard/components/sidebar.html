@@ -1,0 +1,102 @@
+{% comment %}
+    Sidebar responsive avec menu de navigation
+    Usage: {% include 'components/sidebar.html' with drawer_id='main-drawer' active='dashboard' %}
+{% endcomment %}
+
+<div class="drawer-side z-40">
+  <label for="{{ drawer_id|default:'main-drawer' }}" aria-label="close sidebar" class="drawer-overlay"></label>
+  
+  <aside class="bg-base-100 min-h-screen w-80 border-r border-base-300">
+    <!-- Logo mobile -->
+    <div class="sticky top-0 z-20 bg-base-100 border-b border-base-300 px-4 py-4 lg:hidden">
+      <a href="{% url 'dashboard:dashboard' %}" class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        Adjectif
+      </a>
+    </div>
+    
+    <!-- Navigation -->
+    <ul class="menu p-4 gap-2">
+      <!-- Dashboard -->
+      <li>
+        <a href="{% url 'dashboard:dashboard' %}" class="{% if active == 'dashboard' %}active{% endif %}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Tableau de bord
+        </a>
+      </li>
+      
+      <!-- Projets -->
+      <li>
+        <a href="{% url 'dashboard:list' %}" class="{% if active == 'list' %}active{% endif %}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Projets
+        </a>
+      </li>
+      
+      <!-- Section Gestion -->
+      <li class="menu-title mt-4">
+        <span class="text-base-content/70">Gestion</span>
+      </li>
+      
+      <li>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          Clients
+        </a>
+      </li>
+      
+      <li>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+          Tâches
+        </a>
+      </li>
+      
+      <li>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          Équipe
+        </a>
+      </li>
+      
+      <!-- Section Paramètres -->
+      <li class="menu-title mt-4">
+        <span class="text-base-content/70">Système</span>
+      </li>
+      
+      <li>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Paramètres
+        </a>
+      </li>
+    </ul>
+    
+    <!-- User info en bas du sidebar -->
+    <div class="absolute bottom-0 w-full border-t border-base-300 p-4 bg-base-100">
+      <div class="flex items-center gap-3">
+        <div class="avatar">
+          <div class="w-10 rounded-full">
+            <img src="https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=random" />
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm">{{ user.get_full_name|default:user.username }}</div>
+          <div class="text-xs text-base-content/70">{{ user.email }}</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>

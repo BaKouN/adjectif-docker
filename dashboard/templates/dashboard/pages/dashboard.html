@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Adjectif{% endblock %}
+
+{% block content %}
+<!-- Fil d'Ariane -->
+{% include 'dashboard/components/breadcrumb.html' with items=breadcrumb_items %}
+
+<!-- En-tête de page -->
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-base-content">Tableau de bord</h1>
+    <p class="text-base-content/70 mt-2">Vue d'ensemble de votre activité Adjectif</p>
+</div>
+
+<!-- Grid de KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Card 1 -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <h3 class="card-title text-base font-semibold flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        Projets actifs
+                    </h3>
+                    <p class="text-xs text-base-content/70 mt-1">vs mois dernier</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold">24</span>
+                    <span class="text-sm flex items-center gap-1 text-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        +12%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <h3 class="card-title text-base font-semibold flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center text-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                        </div>
+                        Tâches en cours
+                    </h3>
+                    <p class="text-xs text-base-content/70 mt-1">à compléter</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold">156</span>
+                    <span class="text-sm flex items-center gap-1 text-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                        </svg>
+                        -3%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <h3 class="card-title text-base font-semibold flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center text-success">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        Clients actifs
+                    </h3>
+                    <p class="text-xs text-base-content/70 mt-1">+5 nouveaux ce mois</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold">89</span>
+                    <span class="text-sm flex items-center gap-1 text-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        +5.6%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <h3 class="card-title text-base font-semibold flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center text-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        CA du mois
+                    </h3>
+                    <p class="text-xs text-base-content/70 mt-1">Objectif: 50 000€</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold">45 352€</span>
+                    <span class="text-sm flex items-center gap-1 text-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        +18%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cartes principales avec plus d'infos -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Projets récents -->
+    <div class="card bg-base-100 shadow-sm card-border hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <h2 class="card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Projets récents
+            </h2>
+            
+            <div class="overflow-x-auto mt-4">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Projet</th>
+                            <th>Client</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Site vitrine Revolucy</td>
+                            <td>Revolucy</td>
+                            <td><span class="badge badge-success badge-sm">En cours</span></td>
+                        </tr>
+                        <tr>
+                            <td>ERP Adjectif</td>
+                            <td>Adjectif</td>
+                            <td><span class="badge badge-warning badge-sm">Planning</span></td>
+                        </tr>
+                        <tr>
+                            <td>App Mobile</td>
+                            <td>Client ABC</td>
+                            <td><span class="badge badge-info badge-sm">Review</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card-actions justify-end mt-4">
+                <a href="{% url 'dashboard:list' %}" class="btn btn-primary btn-sm">Voir tous les projets</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Activité récente -->
+    <div class="card bg-base-100 shadow-sm card-border hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <h2 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Activité de l'équipe
+                </h2>
+                <span class="badge badge-success badge-sm">En direct</span>
+            </div>
+            
+            <div class="space-y-4 mt-4">
+                <div class="flex items-start gap-3">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-xs">JD</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-semibold">Jean Dupont</p>
+                        <p class="text-xs text-base-content/70">A complété la tâche "Design homepage"</p>
+                        <p class="text-xs text-base-content/50 mt-1">Il y a 5 minutes</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-3">
+                    <div class="avatar placeholder">
+                        <div class="bg-secondary text-secondary-content rounded-full w-10">
+                            <span class="text-xs">ML</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-semibold">Marie Laurent</p>
+                        <p class="text-xs text-base-content/70">A créé un nouveau projet "App Mobile"</p>
+                        <p class="text-xs text-base-content/50 mt-1">Il y a 1 heure</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-3">
+                    <div class="avatar placeholder">
+                        <div class="bg-accent text-accent-content rounded-full w-10">
+                            <span class="text-xs">PM</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-semibold">Pierre Martin</p>
+                        <p class="text-xs text-base-content/70">A ajouté un commentaire sur "API REST"</p>
+                        <p class="text-xs text-base-content/50 mt-1">Il y a 3 heures</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistiques supplémentaires -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Progression mensuelle -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <h3 class="card-title text-base">Progression mensuelle</h3>
+            <div class="mt-4">
+                <div class="flex justify-between text-sm mb-2">
+                    <span>Objectif du mois</span>
+                    <span class="font-bold">90%</span>
+                </div>
+                <progress class="progress progress-primary w-full" value="90" max="100"></progress>
+                <p class="text-xs text-base-content/70 mt-2">45 000€ / 50 000€</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tâches urgentes -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <h3 class="card-title text-base text-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                Tâches urgentes
+            </h3>
+            <div class="mt-4 space-y-2">
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="checkbox checkbox-sm" />
+                    <span class="text-sm">Validation design client</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="checkbox checkbox-sm" />
+                    <span class="text-sm">Déploiement production</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="checkbox checkbox-sm" checked />
+                    <span class="text-sm line-through text-base-content/50">Réunion équipe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick actions -->
+    <div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+            <h3 class="card-title text-base">Actions rapides</h3>
+            <div class="mt-4 space-y-2">
+                <button class="btn btn-outline btn-sm btn-block justify-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Nouveau projet
+                </button>
+                <button class="btn btn-outline btn-sm btn-block justify-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                    Ajouter un client
+                </button>
+                <button class="btn btn-outline btn-sm btn-block justify-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Créer une tâche
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
