@@ -11,8 +11,24 @@
     
     <!-- HTMX pour la réactivité -->
     <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+
+    {% comment %} 
+    TOFIX: Loader not working for now
+    <style>
+        .htmx-indicator {
+            display: none;
+        }
+        .htmx-request .htmx-indicator {
+            display: flex;
+        }
+        .htmx-request.htmx-indicator {
+            display: flex;
+        }
+    </style> 
+    {% endcomment %}
     
-    {% block extra_css %}{% endblock %}
+    {% block extra_css %}
+    {% endblock %}
 </head>
 <body class="bg-base-200">
     <!-- Structure Drawer + Navbar + Content -->

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 def dashboard(request):
     # Données KPI (en vrai ça viendrait de ta base de données)
@@ -62,7 +63,81 @@ def dashboard(request):
     return render(request, 'dashboard/pages/dashboard.html', context)
 
 def list_view(request):
-    return render(request, 'dashboard/pages/list.html')
+    # Données de démo complètes (12 clients)
+    all_clients = [
+        {'id': 1, 'code': '000000', 'nom': 'PROSPECT', 'ville': '-', 'commercial': '-', 'famille': '-', 'actif': True},
+        {'id': 2, 'code': '000006', 'nom': 'GRAINOCEAN INTERNATIONAL', 'ville': 'LA ROCHELLE CDX', 'commercial': '-', 'famille': 'Industrie', 'actif': True},
+        {'id': 3, 'code': '000015', 'nom': 'BAUDELET SAS', 'ville': 'BLARINGHEM', 'commercial': '-', 'famille': 'PME', 'actif': True},
+        {'id': 4, 'code': '000024', 'nom': 'TPF UTILITIES FRANCE', 'ville': 'FRETIN', 'commercial': '-', 'famille': 'Grand Compte', 'actif': True},
+        {'id': 5, 'code': '000025', 'nom': 'CONSTELLIUM MONTREUIL JUIGNE', 'ville': 'MONTREUIL JUIGNE', 'commercial': '-', 'famille': 'Industrie', 'actif': False},
+        {'id': 6, 'code': '000031', 'nom': 'SOFISE', 'ville': 'VENISSIEUX', 'commercial': '-', 'famille': '-', 'actif': True},
+        {'id': 7, 'code': '000036', 'nom': 'WDL S.A.S', 'ville': 'LILLE CEDEX', 'commercial': '-', 'famille': 'PME', 'actif': True},
+        {'id': 8, 'code': '000042', 'nom': 'NWL FRANCE SERVICES SAS', 'ville': 'SAINT HERBLAIN', 'commercial': '-', 'famille': '-', 'actif': True},
+        {'id': 9, 'code': '000044', 'nom': 'COS ARTISAN', 'ville': 'ST GERMAIN S/MORIN', 'commercial': '-', 'famille': 'Artisan', 'actif': True},
+        {'id': 10, 'code': '000049', 'nom': 'CARPENTIER PREUX', 'ville': 'CAUDRY', 'commercial': 'Aurélien VANPARYS', 'famille': '-', 'actif': True},
+        {'id': 11, 'code': '000051', 'nom': 'DUO EMBALLAGES', 'ville': 'WILLEMS', 'commercial': 'Aurélien VANPARYS', 'famille': 'PME', 'actif': True},
+        {'id': 12, 'code': '000052', 'nom': 'CAUDRESIENNE ETS', 'ville': 'CAUDRY', 'commercial': 'Olivier GUILLAUME', 'famille': 'Artisan', 'actif': False},
+    ]
+    
+    # Récupérer les filtres
+    search = request.GET.get('search', '')
+    actif_filter = request.GET.get('actif', '')
+    commercial_filter = request.GET.get('commercial', '')
+    famille_filter = request.GET.get('famille', '')
+    
+    # Appliquer les filtres
+    filtered_clients = all_clients
+    
+    if search:
+        filtered_clients = [c for c in filtered_clients if 
+                          search.lower() in c['nom'].lower() or 
+                          search.lower() in c['code'].lower() or
+                          search.lower() in c['ville'].lower()]
+    
+    if actif_filter:
+        actif_bool = actif_filter == 'true'
+        filtered_clients = [c for c in filtered_clients if c['actif'] == actif_bool]
+    
+    if commercial_filter and commercial_filter != '-':
+        filtered_clients = [c for c in filtered_clients if c['commercial'] == commercial_filter]
+    
+    if famille_filter and famille_filter != '-':
+        filtered_clients = [c for c in filtered_clients if c['famille'] == famille_filter]
+    
+    # Pagination (5 par page)
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(filtered_clients, 5)
+    page_obj = paginator.get_page(page_number)
+    
+    # Listes pour les filtres
+    commerciaux = sorted(list(set([c['commercial'] for c in all_clients if c['commercial'] != '-'])))
+    familles = sorted(list(set([c['famille'] for c in all_clients if c['famille'] != '-'])))
+    
+    breadcrumb_items = [
+        {'label': 'Clients', 'url': None}
+    ]
+    
+    # Si requête HTMX, renvoyer juste la table
+    if request.headers.get('HX-Request'):
+        return render(request, 'dashboard/components/clients_table.html', {
+            'page_obj': page_obj,
+        })
+    
+    # Sinon, page complète
+    context = {
+        'page_obj': page_obj,
+        'breadcrumb_items': breadcrumb_items,
+        'total_clients': len(all_clients),
+        'filtered_count': len(filtered_clients),
+        'commerciaux': commerciaux,
+        'familles': familles,
+        'current_search': search,
+        'current_actif': actif_filter,
+        'current_commercial': commercial_filter,
+        'current_famille': famille_filter,
+    }
+    
+    return render(request, 'dashboard/pages/list.html', context)
 
 def create_view(request):
     return render(request, 'dashboard/pages/create.html')

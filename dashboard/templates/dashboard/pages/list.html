@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des clients - Adjectif{% endblock %}
+
+{% block content %}
+<!-- Fil d'Ariane -->
+{% include 'dashboard/components/breadcrumb.html' with items=breadcrumb_items %}
+
+<!-- En-tête -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+    <div>
+        <h1 class="text-3xl font-bold text-base-content">Liste des clients</h1>
+        <p class="text-base-content/70 mt-2">{{ filtered_count }} / {{ total_clients }} client(s)</p>
+    </div>
+    
+    <a href="{% url 'dashboard:create' %}" class="btn btn-primary gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Nouveau client
+    </a>
+</div>
+
+<!-- Filtres -->
+<div class="card bg-base-100 shadow-sm mb-6">
+    <div class="card-body">
+        <h3 class="font-semibold mb-4">Filtres</h3>
+        <form id="filterForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Recherche avec HTMX temps réel -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Recherche</span>
+                </label>
+                <input type="text" 
+                       name="search" 
+                       value="{{ current_search }}"
+                       placeholder="Nom, code, ville..." 
+                       class="input input-bordered input-sm"
+                       hx-get="{% url 'dashboard:list' %}"
+                       hx-target="#clientsContent"
+                       hx-include="#filterForm"
+                       hx-trigger="keyup changed delay:500ms" />
+            </div>
+            
+            <!-- Statut avec HTMX -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Statut</span>
+                </label>
+                <select name="actif" 
+                        class="select select-bordered select-sm"
+                        hx-get="{% url 'dashboard:list' %}"
+                        hx-target="#clientsContent"
+                        hx-include="#filterForm"
+                        hx-trigger="change">
+                    <option value="">Tous</option>
+                    <option value="true" {% if current_actif == 'true' %}selected{% endif %}>Actif</option>
+                    <option value="false" {% if current_actif == 'false' %}selected{% endif %}>Inactif</option>
+                </select>
+            </div>
+            
+            <!-- Commercial avec HTMX -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Commercial</span>
+                </label>
+                <select name="commercial" 
+                        class="select select-bordered select-sm"
+                        hx-get="{% url 'dashboard:list' %}"
+                        hx-target="#clientsContent"
+                        hx-include="#filterForm"
+                        hx-trigger="change">
+                    <option value="">Tous</option>
+                    {% for comm in commerciaux %}
+                    <option value="{{ comm }}" {% if current_commercial == comm %}selected{% endif %}>{{ comm }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Famille avec HTMX -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Famille</span>
+                </label>
+                <select name="famille" 
+                        class="select select-bordered select-sm"
+                        hx-get="{% url 'dashboard:list' %}"
+                        hx-target="#clientsContent"
+                        hx-include="#filterForm"
+                        hx-trigger="change">
+                    <option value="">Toutes</option>
+                    {% for fam in familles %}
+                    <option value="{{ fam }}" {% if current_famille == fam %}selected{% endif %}>{{ fam }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+        
+        <!-- Bouton reset avec HTMX -->
+        <div class="mt-4">
+            <button type="button"
+                    class="btn btn-ghost btn-sm"
+                    hx-get="{% url 'dashboard:list' %}"
+                    hx-target="#clientsContent"
+                    onclick="document.getElementById('filterForm').reset()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Réinitialiser les filtres
+            </button>
+        </div>
+    </div>
+</div>
+
+{% comment %} 
+TOFIX: Loader not working for now
+<!-- Loading indicator -->
+<div id="loading" class="htmx-indicator flex justify-center py-4">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+</div> 
+{% endcomment %}
+
+<!-- Content Container -->
+<div id="clientsContent">
+    {% include 'dashboard/components/clients_table.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="flex justify-center my-6">
+    <div class="join">
+        <!-- Bouton première page -->
+        <button {% if page_obj.has_previous %}hx-get="?page=1" hx-target="#clientsContent" hx-include="#filterForm"{% endif %}
+                class="join-item btn btn-sm"
+                {% if not page_obj.has_previous %}disabled{% endif %}>«</button>
+        
+        <!-- Bouton page précédente -->
+        <button {% if page_obj.has_previous %}hx-get="?page={{ page_obj.previous_page_number }}" hx-target="#clientsContent" hx-include="#filterForm"{% endif %}
+                class="join-item btn btn-sm"
+                {% if not page_obj.has_previous %}disabled{% endif %}>‹</button>
+        
+        <!-- Numéros de pages -->
+        {% for num in page_obj.paginator.page_range %}
+        <button hx-get="?page={{ num }}"
+                hx-target="#clientsContent"
+                hx-include="#filterForm"
+                class="join-item btn btn-sm {% if page_obj.number == num %}btn-active{% endif %}">{{ num }}</button>
+        {% endfor %}
+        
+        <!-- Bouton page suivante -->
+        <button {% if page_obj.has_next %}hx-get="?page={{ page_obj.next_page_number }}" hx-target="#clientsContent" hx-include="#filterForm"{% endif %}
+                class="join-item btn btn-sm"
+                {% if not page_obj.has_next %}disabled{% endif %}>›</button>
+        
+        <!-- Bouton dernière page -->
+        <button {% if page_obj.has_next %}hx-get="?page={{ page_obj.paginator.num_pages }}" hx-target="#clientsContent" hx-include="#filterForm"{% endif %}
+                class="join-item btn btn-sm"
+                {% if not page_obj.has_next %}disabled{% endif %}>»</button>
+    </div>
+</div>
+{% endif %}
