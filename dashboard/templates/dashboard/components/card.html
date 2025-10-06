@@ -1,76 +1,94 @@
 {% comment %}
-    Carte réutilisable avec différents styles
-    Usage: 
-    {% include 'components/card.html' with 
-    title='Mon titre' 
-    icon='...' 
-    value='42' 
-    subtitle='Description'
-    trend='up'
-    trend_value='+12%'
-    card_class='card-border'
-    %}
+Carte réutilisable avec différents styles
+Usage: {% include 'dashboard/components/card.html' with
+title='Mon titre'
+icon_name='money'
+value='42'
+subtitle='Description'
+trend='up'
+trend_value='+12%'
+color='primary'
+%}
 {% endcomment %}
 
-<div class="card bg-base-100 shadow-sm {{ card_class|default:'' }} hover:shadow-md transition-shadow">
-  <div class="card-body {{ size|default:'card-md' }}">
-    {% if icon or title %}
-    <div class="flex items-start justify-between">
-      <div class="flex-1">
-        {% if title %}
-        <h3 class="card-title text-base font-semibold">
-          {% if icon %}
-          <div class="w-8 h-8 rounded-lg bg-{{ color|default:'primary' }}/10 flex items-center justify-center text-{{ color|default:'primary' }}">
-            {{ icon|safe }}
-          </div>
-          {% endif %}
-          {{ title }}
-        </h3>
+<div class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+    <div class="card-body">
+        {% if icon_name or title %}
+        <div class="flex items-start justify-between">
+            <div class="flex-1">
+                {% if title %}
+                <h3 class="card-title text-base font-semibold">
+                    {% if icon_name %}
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center ...">
+                        {% if icon_name == 'money' %}
+                        <svg>...</svg>
+                        {% elif icon_name == 'projects' %}
+                        <svg>...</svg>
+                        {% elif icon_name == 'warning' %}
+                        <svg>...</svg>
+                        {% elif icon_name == 'clock' %}
+                        <svg>...</svg>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {{ title }}
+                </h3>
+                {% endif %}
+
+                {% if subtitle %}
+                <p class="text-xs text-base-content/70 mt-1">{{ subtitle }}</p>
+                {% endif %}
+            </div>
+
+            {% if badge %}
+            <span class="badge
+        {% if badge_color == 'primary' %}badge-primary
+        {% elif badge_color == 'success' %}badge-success
+        {% elif badge_color == 'warning' %}badge-warning
+        {% elif badge_color == 'error' %}badge-error
+        {% elif badge_color == 'info' %}badge-info
+        {% else %}badge-neutral
+        {% endif %} badge-sm">{{ badge }}</span>
+            {% endif %}
+        </div>
         {% endif %}
-        
-        {% if subtitle %}
-        <p class="text-xs text-base-content/70 mt-1">{{ subtitle }}</p>
-        {% endif %}
-      </div>
-      
-      {% if badge %}
-      <span class="badge badge-{{ badge_color|default:'primary' }} badge-sm">{{ badge }}</span>
-      {% endif %}
-    </div>
-    {% endif %}
-    
-    {% if value %}
-    <div class="mt-4">
-      <div class="flex items-baseline gap-2">
-        <span class="text-3xl font-bold">{{ value }}</span>
-        {% if trend %}
-        <span class="text-sm flex items-center gap-1 {% if trend == 'up' %}text-success{% elif trend == 'down' %}text-error{% else %}text-base-content/70{% endif %}">
+
+        {% if value %}
+        <div class="mt-4">
+            <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold">{{ value }}</span>
+                {% if trend %}
+                <span class="text-sm flex items-center gap-1
+          {% if trend == 'up' %}text-success
+          {% elif trend == 'down' %}text-error
+          {% else %}text-base-content/70
+          {% endif %}">
           {% if trend == 'up' %}
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
           </svg>
           {% elif trend == 'down' %}
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
           </svg>
           {% endif %}
           {{ trend_value }}
         </span>
+                {% endif %}
+            </div>
+        </div>
         {% endif %}
-      </div>
+
+        {% if content %}
+        <div class="mt-2">
+            {{ content|safe }}
+        </div>
+        {% endif %}
+
+        {% if actions %}
+        <div class="card-actions justify-end mt-4">
+            {{ actions|safe }}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-    
-    {% if content %}
-    <div class="mt-2">
-      {{ content|safe }}
-    </div>
-    {% endif %}
-    
-    {% if actions %}
-    <div class="card-actions justify-end mt-4">
-      {{ actions|safe }}
-    </div>
-    {% endif %}
-  </div>
 </div>

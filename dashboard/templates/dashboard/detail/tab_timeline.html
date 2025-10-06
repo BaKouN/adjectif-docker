@@ -1,38 +1,67 @@
 {% comment %}
-    Onglet Activité et Timeline du client
-    Utilise le composant timeline de DaisyUI
+    Onglet Activité et Processus de vente du client
+    Utilise le composant Steps de DaisyUI pour visualiser l'avancement
 {% endcomment %}
 
-<h2 class="text-xl font-bold mb-6">Historique et activité</h2>
+<h2 class="text-xl font-bold mb-6">Processus de vente</h2>
 
-<!-- Timeline verticale DaisyUI -->
-<ul class="timeline timeline-vertical">
+{% if timeline %}
+<!-- Steps verticaux pour afficher le parcours commercial -->
+<ul class="steps steps-vertical w-full">
     {% for activite in timeline %}
-    <li>
-        <div class="timeline-start">{{ activite.date }}</div>
-        <div class="timeline-middle">
-            <div class="w-4 h-4 rounded-full bg-{{ activite.color }}"></div>
-        </div>
-        <div class="timeline-end timeline-box">
-            <div class="font-semibold">{{ activite.titre }}</div>
-            <div class="text-sm text-base-content/70">{{ activite.description }}</div>
+    <li class="step
+        {% if activite.color == 'success' %}step-success
+        {% elif activite.color == 'primary' %}step-primary
+        {% elif activite.color == 'info' %}step-info
+        {% elif activite.color == 'warning' %}step-warning
+        {% elif activite.color == 'error' %}step-error
+        {% else %}step-neutral
+        {% endif %}
+    ">
+        <div class="text-left w-full pl-4">
+            <!-- Date -->
+            <div class="text-xs text-base-content/50 mb-1">{{ activite.date }}</div>
+
+            <!-- Titre de l'étape -->
+            <div class="font-semibold text-base">{{ activite.titre }}</div>
+
+            <!-- Description -->
+            <div class="text-sm text-base-content/70 mt-1">{{ activite.description }}</div>
+
+            <!-- Utilisateur avec icône -->
             {% if activite.utilisateur %}
-            <div class="text-xs text-base-content/50 mt-2">Par {{ activite.utilisateur }}</div>
+            <div class="text-xs text-base-content/50 mt-2 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span>{{ activite.utilisateur }}</span>
+            </div>
             {% endif %}
-        </div>
-        <hr class="bg-{{ activite.color }}" />
-    </li>
-    {% empty %}
-    <li>
-        <div class="timeline-start">01/01/2024</div>
-        <div class="timeline-middle">
-            <div class="w-4 h-4 rounded-full bg-success"></div>
-        </div>
-        <div class="timeline-end timeline-box">
-            <div class="font-semibold">Client créé</div>
-            <div class="text-sm text-base-content/70">Création de la fiche client dans le système</div>
-            <div class="text-xs text-base-content/50 mt-2">Par Admin</div>
         </div>
     </li>
     {% endfor %}
 </ul>
+
+<!-- Résumé de l'avancement -->
+<div class="mt-8 p-4 bg-base-200 rounded-lg">
+    <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+            <div class="font-semibold">{{ timeline|length }} étape{{ timeline|length|pluralize }}</div>
+            <div class="text-sm text-base-content/70">Dernière activité : {{ timeline.0.date }}</div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- État vide : Aucune activité -->
+<div class="flex flex-col items-center justify-center py-12 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-base-content/20 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+    </svg>
+    <p class="text-base-content/50 mb-2">Aucune activité enregistrée</p>
+    <p class="text-sm text-base-content/30">L'historique des interactions apparaîtra ici</p>
+</div>
+{% endif %}
