@@ -1,0 +1,38 @@
+{% comment %}
+    Onglet Activité et Timeline du client
+    Utilise le composant timeline de DaisyUI
+{% endcomment %}
+
+<h2 class="text-xl font-bold mb-6">Historique et activité</h2>
+
+<!-- Timeline verticale DaisyUI -->
+<ul class="timeline timeline-vertical">
+    {% for activite in timeline %}
+    <li>
+        <div class="timeline-start">{{ activite.date }}</div>
+        <div class="timeline-middle">
+            <div class="w-4 h-4 rounded-full bg-{{ activite.color }}"></div>
+        </div>
+        <div class="timeline-end timeline-box">
+            <div class="font-semibold">{{ activite.titre }}</div>
+            <div class="text-sm text-base-content/70">{{ activite.description }}</div>
+            {% if activite.utilisateur %}
+            <div class="text-xs text-base-content/50 mt-2">Par {{ activite.utilisateur }}</div>
+            {% endif %}
+        </div>
+        <hr class="bg-{{ activite.color }}" />
+    </li>
+    {% empty %}
+    <li>
+        <div class="timeline-start">01/01/2024</div>
+        <div class="timeline-middle">
+            <div class="w-4 h-4 rounded-full bg-success"></div>
+        </div>
+        <div class="timeline-end timeline-box">
+            <div class="font-semibold">Client créé</div>
+            <div class="text-sm text-base-content/70">Création de la fiche client dans le système</div>
+            <div class="text-xs text-base-content/50 mt-2">Par Admin</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
