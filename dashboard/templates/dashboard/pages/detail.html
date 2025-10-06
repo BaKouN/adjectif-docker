@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}{{ client.nom }} - Détail client{% endblock %}
+
+{% block content %}
+<!-- Fil d'Ariane -->
+{% include 'dashboard/components/breadcrumb.html' with items=breadcrumb_items %}
+
+<!-- Header client (statique) -->
+{% include 'dashboard/detail/header.html' %}
+
+<!-- Navigation des tabs (HTMX) -->
+<div class="card bg-base-100 shadow-sm">
+    <div class="card-body p-0">
+        <!-- Tabs navigation -->
+        <div role="tablist" class="tabs tabs-lifted tabs-lg">
+            <button role="tab"
+                    class="tab {% if current_tab == 'info' %}tab-active{% endif %}"
+                    hx-get="{% url 'dashboard:detail' client.id %}?tab=info"
+                    hx-target="#tabContent"
+                    hx-push-url="true">
+                Informations
+            </button>
+
+            <button role="tab"
+                    class="tab {% if current_tab == 'projets' %}tab-active{% endif %}"
+                    hx-get="{% url 'dashboard:detail' client.id %}?tab=projets"
+                    hx-target="#tabContent"
+                    hx-push-url="true">
+                Projets
+            </button>
+
+            <button role="tab"
+                    class="tab {% if current_tab == 'stats' %}tab-active{% endif %}"
+                    hx-get="{% url 'dashboard:detail' client.id %}?tab=stats"
+                    hx-target="#tabContent"
+                    hx-push-url="true">
+                Statistiques
+            </button>
+
+            <button role="tab"
+                    class="tab {% if current_tab == 'timeline' %}tab-active{% endif %}"
+                    hx-get="{% url 'dashboard:detail' client.id %}?tab=timeline"
+                    hx-target="#tabContent"
+                    hx-push-url="true">
+                Activité
+            </button>
+        </div>
+
+        <!-- Contenu dynamique des tabs -->
+        <div id="tabContent" class="p-6">
+            <!-- Premier chargement: onglet info par défaut -->
+            {% include 'dashboard/detail/tab_info.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
