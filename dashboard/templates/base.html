@@ -1,19 +1,83 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr" data-theme="adjectif">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Adjectif ERP{% endblock %}</title>
-    
+
     <!-- Tailwind + DaisyUI via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!-- HTMX pour la réactivité -->
     <script src="https://unpkg.com/htmx.org@2.0.3"></script>
 
     <!-- Alpine.js pour l'interactivité client -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+    <!-- Thème Adjectif Custom -->
+    <style>[data-theme="adjectif"] {
+      /* Rouge Adjectif - Couleur principale */
+      --color-primary: oklch(58.5% 0.185 15);           /* #E94E3D */
+      --color-primary-content: oklch(100% 0 0);         /* Blanc sur rouge */
+
+      /* Backgrounds CLAIRS pour le contenu principal */
+      --color-base-100: oklch(100% 0 0);                /* Blanc pur - Cards */
+      --color-base-200: oklch(97% 0.005 260);           /* Gris très clair - Background */
+      --color-base-300: oklch(90% 0.01 260);            /* Gris clair - Bordures */
+      --color-base-content: oklch(20% 0.02 260);        /* Texte noir */
+
+      /* Sidebar/Navbar SOMBRE */
+      --color-neutral: oklch(18% 0.02 260);             /* Noir sidebar/navbar */
+      --color-neutral-content: oklch(95% 0 0);          /* Texte blanc */
+
+      --color-secondary: oklch(25% 0.02 260);           /* Gris foncé accent */
+      --color-secondary-content: oklch(95% 0 0);
+
+      --color-accent: oklch(58.5% 0.185 15);            /* Rouge accent (même que primary) */
+      --color-accent-content: oklch(100% 0 0);
+
+      /* Status colors */
+      --color-info: oklch(60% 0.15 230);                /* Bleu info */
+      --color-info-content: oklch(100% 0 0);
+
+      --color-success: oklch(62% 0.15 145);             /* Vert succès */
+      --color-success-content: oklch(100% 0 0);
+
+      --color-warning: oklch(75% 0.15 75);              /* Orange warning */
+      --color-warning-content: oklch(20% 0.02 75);
+
+      --color-error: oklch(58.5% 0.185 15);             /* Rouge erreur (même que primary) */
+      --color-error-content: oklch(100% 0 0);
+
+      /* Design tokens */
+      --radius-selector: 0.25rem;
+      --radius-field: 0.5rem;
+      --radius-box: 0.75rem;
+      --size-selector: 0.25rem;
+      --size-field: 0.25rem;
+      --border: 1px;
+      --depth: 1;
+      --noise: 0;
+    }
+
+    /* Font Adjectif */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Boutons style Adjectif (coins arrondis pill) */
+    .btn {
+      border-radius: 2rem;
+      text-transform: none;
+      font-weight: 500;
+    }
+
+    /* Cards avec ombre subtile */
+    .card {
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+    </style>
 
     {% comment %}
     TOFIX: Loader not working for now
@@ -27,9 +91,9 @@
         .htmx-request.htmx-indicator {
             display: flex;
         }
-    </style> 
+    </style>
     {% endcomment %}
-    
+
     {% block extra_css %}
     {% endblock %}
 </head>
@@ -44,7 +108,7 @@
             {% include 'dashboard/components/navbar.html' with drawer_id='main-drawer' %}
             
             <!-- Contenu de la page -->
-            <main class="flex-1 p-6">
+            <main class="flex-1 p-6 bg-base-100">
                 {% block content %}{% endblock %}
             </main>
         </div>

@@ -3,7 +3,7 @@
     Usage: {% include 'components/navbar.html' with drawer_id='main-drawer' %}
 {% endcomment %}
 
-<div class="navbar bg-base-100 shadow-sm border-b border-base-300">
+<div class="navbar bg-neutral text-neutral-content shadow-sm border-b border-base-300">
   <!-- Logo + Hamburger (mobile) -->
   <div class="navbar-start">
     <label for="{{ drawer_id|default:'main-drawer' }}" class="btn btn-ghost btn-square lg:hidden">
@@ -12,9 +12,9 @@
       </svg>
     </label>
     
-    <a href="{% url 'dashboard:dashboard' %}" class="btn btn-ghost text-xl font-bold">
-      <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-        Adjectif
+    <a href="{% url 'dashboard:dashboard' %}" class="btn bg-neutral/70 text-xl font-bold">
+      <span class="text-neutral-content">
+        Adjectif.
       </span>
     </a>
   </div>
@@ -51,10 +51,9 @@
     
     <!-- User dropdown -->
     <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img src="https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=random" 
-               alt="{{ user.username }}" />
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar avatar-placeholder">
+        <div class="bg-primary text-primary-content rounded-full w-10">
+          <span>AB</span>
         </div>
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg border border-base-300">

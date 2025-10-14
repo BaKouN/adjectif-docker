@@ -6,9 +6,9 @@
 <div class="drawer-side z-40">
   <label for="{{ drawer_id|default:'main-drawer' }}" aria-label="close sidebar" class="drawer-overlay"></label>
   
-  <aside class="bg-base-100 min-h-screen w-80 border-r border-base-300">
+  <aside class="bg-neutral text-neutral-content min-h-screen w-80 border-r border-base-300">
     <!-- Logo mobile -->
-    <div class="sticky top-0 z-20 bg-base-100 border-b border-base-300 px-4 py-4 lg:hidden">
+    <div class="sticky top-0 z-20 bg-neutral border-b border-base-300 px-4 py-4 lg:hidden">
       <a href="{% url 'dashboard:dashboard' %}" class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
         Adjectif
       </a>
@@ -38,7 +38,7 @@
       
       <!-- Section Gestion -->
       <li class="menu-title mt-4">
-        <span class="text-base-content/70">Gestion</span>
+        <span class="text-neutral-content/70">Gestion</span>
       </li>
       
       <li>
@@ -70,7 +70,7 @@
       
       <!-- Section Paramètres -->
       <li class="menu-title mt-4">
-        <span class="text-base-content/70">Système</span>
+        <span class="text-neutral-content/70">Système</span>
       </li>
       
       <li>
@@ -85,16 +85,16 @@
     </ul>
     
     <!-- User info en bas du sidebar -->
-    <div class="absolute bottom-0 w-full border-t border-base-300 p-4 bg-base-100">
+    <div class="absolute bottom-0 w-full border-t border-base-300 p-4 bg-neutral">
       <div class="flex items-center gap-3">
-        <div class="avatar">
-          <div class="w-10 rounded-full">
-            <img src="https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=random" />
+        <div class="avatar avatar-placeholder">
+          <div class="bg-primary text-primary-content w-10 rounded-full">
+            <span>AB</span>
           </div>
         </div>
         <div class="flex-1">
-          <div class="font-semibold text-sm">{{ user.get_full_name|default:user.username }}</div>
-          <div class="text-xs text-base-content/70">{{ user.email }}</div>
+          <div class="font-semibold text-sm">Haroun Bakhouche</div>
+          <div class="text-xs text-neutral-content/70">haroun@revolucy.fr</div>
         </div>
       </div>
     </div>
